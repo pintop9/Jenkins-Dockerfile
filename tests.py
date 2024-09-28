@@ -1,20 +1,28 @@
-def test_home_status_code(self):
+import unittest
+from myapp import app  # Import your Flask app here
+
+class TestHomePage(unittest.TestCase):
+    def setUp(self):
+        # Set up the test client for your app
+        self.app = app.test_client()
+
+    def test_home_status_code(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
 
-def test_home_data(self):
+    def test_home_data(self):
         response = self.app.get('/')
         self.assertIn(b"Deployment with Jenkins", response.data)
 
-def test_time_status_code(self):
+    def test_time_status_code(self):
         response = self.app.get('/time')
         self.assertEqual(response.status_code, 200)
 
-def test_time_data(self):
+    def test_time_data(self):
         response = self.app.get('/time')
         self.assertIn(b"Current UTC Time", response.data)
 
-def test_unknown_page(self):
+    def test_unknown_page(self):
         response = self.app.get('/unknown')
         self.assertEqual(response.status_code, 404)
 
